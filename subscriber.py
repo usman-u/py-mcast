@@ -17,4 +17,4 @@ while True:  # RX loop
     message, address = sock.recvfrom(1024)
     
     data = pickle.loads(message)
-    print ("{} | Received Message: '{}' on {}".format(data[1], data[0], multicast_group))
+    print ("{} | Received Message: '{}' on {} at {}".format(data[1], data[0], multicast_group, data[2]))
