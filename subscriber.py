@@ -2,8 +2,8 @@ import socket
 import struct
 import pickle
 
-multicast_group = '224.3.29.71'
-server_address = ('', 10000)
+multicast_group = '224.3.29.71' # macst group
+server_address = ('', 10000)    # port
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
