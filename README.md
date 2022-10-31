@@ -1,4 +1,4 @@
-* A simple python program to generate multicast traffic for a multicast group.
+* A simple python program to generate multicast traffic on a multicast group.
 * Uses python sockets.
 
 ---
@@ -11,7 +11,7 @@
 
 * Tested on a Linux hosts, but should work on Windows as well (might have to modify firewall).
 
-* Remove `time.sleep(1.5)` publisher.py to generate traffic continuously. This generates ~20mbps of traffic. Warning: this will cause a multicast storm if network isn't configured properly.
+* Remove `time.sleep(1.5)`in publisher.py to generate traffic continuously. This generates ~20mbps of traffic. Warning: this will cause a multicast storm if network isn't configured properly.
 
 ---
 
