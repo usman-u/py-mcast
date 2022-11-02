@@ -1,5 +1,7 @@
+## py-mcast
+
 * A simple python program to generate multicast traffic on a multicast group.
-* Uses python sockets.
+* Uses python sockets and argparse.
 
 ---
 
@@ -11,7 +13,47 @@
 
 * Tested on a Linux hosts, but should work on Windows as well (might have to modify firewall).
 
-* Remove `time.sleep(1.5)`in publisher.py to generate traffic continuously. This generates ~20mbps of traffic. Warning: this will cause a multicast storm if network isn't configured properly.
+* Set `--interval` as 0 to generate traffic continuously. 
+    * This generates ~20mbps of traffic. 
+    * Warning: this will cause a multicast storm if network isn't configured properly.
+
+---
+
+
+### Arguments for `publisher.py`
+```n
+python .\publisher.py -h
+usage: py-mcast [-h] [-addr MCASTADDR] [-p PORT] [-m MESSAGE] [-c COUNT] [-ttl TTL] [-ivl INTERVAL]
+
+A Python Multicast Traffic Generator.
+
+options:
+  -h, --help            show this help message and exit
+  -addr MCASTADDR, --mcastaddr MCASTADDR
+                        multicast address to publish to
+  -p PORT, --port PORT  port to publish to multicast packets on.
+  -m MESSAGE, --message MESSAGE
+                        message to multicast
+  -c COUNT, --count COUNT
+                        number of messages to send
+  -ttl TTL, --ttl TTL   TTL of multicast packets .
+  -ivl INTERVAL, --interval INTERVAL
+                        Interval between multicast packets. 0 = 20mbps flood.
+```
+
+### Arguments for `subscriber.py`
+```n
+python .\subscriber.py -h
+usage: py-mcast [-h] [-addr MULTICAST_ADDRESS] [-p PORT]        
+
+A Python Multicast Traffic Generator.
+
+options:
+  -h, --help            show this help message and exit
+  -addr MULTICAST_ADDRESS, --multicast-address MULTICAST_ADDRESS
+                        multicast address to subscribe to       
+  -p PORT, --port PORT  port to publish/subscribe to traffic on.
+```
 
 ---
 
