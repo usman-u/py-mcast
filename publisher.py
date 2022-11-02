@@ -23,9 +23,9 @@ A Python Multicast Traffic Generator\nBy <usman@usman.network> See https://blog.
         final_message = [message, i, 0]                                       # increments message counter every loop 
         final_message[2] = datetime.datetime.now().strftime("%H:%M:%S")       # appends timestamp to message at index 2
 
-        data = pickle.dumps(message)
+        data = pickle.dumps(final_message)
 
-        print ("{} | Generating message: '{}' | to {} | on port {} | at {}".format(final_message[1], final_message[0], multicast_group[0], port, final_message[2]))
+        print ("{} | Generating message: '{}' | to {}:{} | at {}".format(final_message[1], final_message[0], multicast_group[0], port, final_message[2]))
         sent = sock.sendto(data, multicast_group)
 
         time.sleep(interval)
