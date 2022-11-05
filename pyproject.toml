@@ -6,6 +6,8 @@ authors = ["Usman <usman@usman.network>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+argparse = "^1.4.0"
+datetime = "^4.7"
 
 [tool.poetry.dev-dependencies]
 
