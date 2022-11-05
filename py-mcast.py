@@ -30,13 +30,43 @@ A Python Multicast Traffic Generator\nBy <usman@usman.network> See https://blog.
 
         time.sleep(interval)
 
+def subscribe(mcast_addr, port):
+    print ("""-------------------------------------------------------
+A Python Multicast Traffic Generator\nBy <usman@usman.network> See https://blog.usman.network.
+-------------------------------------------------------""")
+    multicast_group = mcast_addr # macst group
+    server_address = ('', port)    # port
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    sock.bind(server_address)
+
+    group = socket.inet_aton(multicast_group)
+    mreq = struct.pack('4sL', group, socket.INADDR_ANY)
+    sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
+
+    print ("Listening for multicast packets on {}:{}...".format(multicast_group, port))
+    while True:  # RX loop
+        message, address = sock.recvfrom(1024)
+        
+        data = pickle.loads(message)
+        print ("{} | Received Message: '{}' | on {}:{} | at {}".format(data[1], data[0], multicast_group, port, data[2]))
+
+
 parser = argparse.ArgumentParser(prog="py-mcast",
         allow_abbrev=True,
         description="A Python Multicast Traffic Generator.",
         epilog="By <usman@usman.network> See https://blog.usman.network."
     )
 
-parser.add_argument("-addr", "--mcastaddr", 
+parser.add_argument("job", 
+                    metavar='job', 
+                    type=str, 
+                    nargs=1,
+                    choices=["publish", "subscribe"],
+                    help="Action to do, publish or subscribe")
+
+parser.add_argument("-addr", "--multicast-address", 
                     action="store", 
                     type=str,
                     default="224.3.29.71",
@@ -80,4 +110,8 @@ parser.add_argument("-ivl", "--interval",
 
 args = parser.parse_args()
 
-publish(args.message, args.mcastaddr, args.port, args.count, args.ttl, args.interval)
+if args.job[0] == "publish":
+    publish(args.message, args.multicast_address, args.port, args.count, args.ttl, args.interval)
+
+if args.job[0] == "subscribe":
+    subscribe(args.multicast_address, args.port)
