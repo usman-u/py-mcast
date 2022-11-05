@@ -8,7 +8,7 @@
 # Developer Notes
 ```bash
 conda create -n py-mcast
-create activate py-mcast
+conda activate py-mcast
 poetry install
 ```
 If using VSCode SSH remote, change interpreter to conda env python path.
@@ -23,9 +23,11 @@ Confirm with `which python3`
 
 ## Usage
 
-* Assuming a multicast capable network (PIM, IGMP, etc) is in configured, run `publisher.py` on a server, and then `subscriber.py` on various hosts.
+* Assuming a multicast capable network (PIM, IGMP, etc) is in configured:
+  * On the publisher, run `python3 py-mcast.py publish`
+  * And on the subscribers, run `python3 py-mcast.py subscribe`
 
-* Mcast group and port can be configured in `publisher.py`, remember to reflect changes in `subscriber.py`.
+* Mcast group, port, ttl, interval and the message can be changed using the CLI arguments, remember to reflect change on both ends.
 
 * Tested on a Linux hosts, but should work on Windows as well (might have to modify firewall).
 
@@ -36,16 +38,19 @@ Confirm with `which python3`
 ---
 
 
-### Arguments for `publisher.py`
-```n
-python .\publisher.py -h
-usage: py-mcast [-h] [-addr MCASTADDR] [-p PORT] [-m MESSAGE] [-c COUNT] [-ttl TTL] [-ivl INTERVAL]
+## Arguments for `py-mcast.py`
+```bash
+python3 py-mcast.py -h
+usage: py-mcast [-h] [-addr MULTICAST_ADDRESS] [-p PORT] [-m MESSAGE] [-c COUNT] [-ttl TTL] [-ivl INTERVAL] job
 
 A Python Multicast Traffic Generator.
 
+positional arguments:
+  job                   Action to do, publish or subscribe
+
 options:
   -h, --help            show this help message and exit
-  -addr MCASTADDR, --mcastaddr MCASTADDR
+  -addr MULTICAST_ADDRESS, --multicast-address MULTICAST_ADDRESS
                         multicast address to publish to
   -p PORT, --port PORT  port to publish to multicast packets on.
   -m MESSAGE, --message MESSAGE
@@ -55,23 +60,10 @@ options:
   -ttl TTL, --ttl TTL   TTL of multicast packets .
   -ivl INTERVAL, --interval INTERVAL
                         Interval between multicast packets. 0 = 20mbps flood.
-```
 
-### Arguments for `subscriber.py`
-```n
-python .\subscriber.py -h
-usage: py-mcast [-h] [-addr MULTICAST_ADDRESS] [-p PORT]        
-
-A Python Multicast Traffic Generator.
-
-options:
-  -h, --help            show this help message and exit
-  -addr MULTICAST_ADDRESS, --multicast-address MULTICAST_ADDRESS
-                        multicast address to subscribe to       
-  -p PORT, --port PORT  port to publish/subscribe to traffic on.
+By <usman@usman.network> See https://blog.usman.network.
 ```
 
 ---
-
 ## Example
 ![Example](example.PNG)
