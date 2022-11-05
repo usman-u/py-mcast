@@ -5,6 +5,22 @@
 
 ---
 
+# Developer Notes
+```bash
+conda create -n py-mcast
+create activate py-mcast
+poetry install
+```
+If using VSCode SSH remote, change interpreter to conda env python path.
+
+e.g. `/home/usman/miniconda3/envs/py-mcast/bin/python3`
+
+Confirm with `which python3`
+```bash
+(network-automation) usman@dev-usman-lan:~/network-automation$ which python
+/home/usman/miniconda3/envs/py-mcast/bin/python3
+```
+
 ## Usage
 
 * Assuming a multicast capable network (PIM, IGMP, etc) is in configured, run `publisher.py` on a server, and then `subscriber.py` on various hosts.
@@ -58,4 +74,4 @@ options:
 ---
 
 ## Example
-![Example](./exmaple.PNG)
+![Example](example.PNG)
