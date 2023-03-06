@@ -1,7 +1,8 @@
 ## py-mcast
 
-* A simple python program to generate multicast traffic on a multicast group.
+* A simple python program to generate multicast traffic on a multicast address.
 * Uses python sockets and argparse.
+* Mainly for diagnostic purposes e.g. in a multicast lab.
 
 ---
 
@@ -23,9 +24,11 @@ Confirm with `which python3`
 
 ## Usage
 
-* Assuming a multicast capable network (PIM, IGMP, etc) is in configured:
-  * On the publisher, run `python3 py-mcast.py publish`
-  * And on the subscribers, run `python3 py-mcast.py subscribe`
+* Assuming a multicast capable network (PIM, IGMP, etc) is configured correctly:
+  * On the publisher, run: `python3 py-mcast.py publish -addr 239.1.1.1 -p 10000`
+  * And on the subscribers, run: `python3 py-mcast.py subscribe -addr 239.1.1.1 -p 10000`
+
+  * Multiple publisher/subscribers can run on the same host, but each publisher/subscriber must have a unique UDP port number.
 
 * Mcast group, port, ttl, interval and the message can be changed using the CLI arguments, remember to reflect change on both ends.
 
