@@ -142,7 +142,7 @@ parser.add_argument(
     action="store",
     required=False,
     default=1,
-    type=int,
+    type=float,
     help="Interval between multicast packets. 0 = 20mbps flood.",
 )
 
