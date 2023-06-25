@@ -25,7 +25,7 @@ A Python Multicast Traffic Generator\nBy Usman <usman@usman.network> See https:/
     for i in range(1, count + 1):  # TX loop
         final_message = [message, i, 0]  # increments message counter every loop
         final_message[2] = datetime.datetime.now().strftime(
-            "%H:%M:%S"
+            "%H:%M:%S.%f"
         )  # appends timestamp to message at index 2
 
         data = pickle.dumps(final_message)
