@@ -44,7 +44,7 @@ A Python Multicast Traffic Generator\nBy Usman <usman@usman.network> See https:/
         time.sleep(interval)
 
 
-def subscribe(mcast_addr, port, raw):
+def subscribe(mcast_addr, port):
     print(
         """-------------------------------------------------------
 A Python Multicast Traffic Generator\nBy Usman <usman@usman.network> See https://blog.usman.network.
@@ -66,14 +66,11 @@ A Python Multicast Traffic Generator\nBy Usman <usman@usman.network> See https:/
         message, address = sock.recvfrom(1024)
 
         data = pickle.loads(message)
-        if raw:
-            print(data)
-        else:
-            print(
-                "{} | Received Message: '{}' | on {}:{} | at {}".format(
-                    data[1], data[0], multicast_group, port, data[2]
-                )
+        print(
+            "{} | Received Message: '{}' | on {}:{} | at {}".format(
+                data[1], data[0], multicast_group, port, data[2]
             )
+        )
 
 parser = argparse.ArgumentParser(
     prog="py-mcast",
@@ -140,15 +137,6 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    "-raw",
-    "--raw",
-    action=argparse.BooleanOptionalAction,
-    default=False,
-    type=bool,
-    help="Display raw data on subscriber side.",
-)
-
-parser.add_argument(
     "-ivl",
     "--interval",
     action="store",
@@ -171,4 +159,4 @@ if args.job[0] == "publish":
     )
 
 if args.job[0] == "subscribe":
-    subscribe(args.multicast_address, args.port, args.raw)
+    subscribe(args.multicast_address, args.port)
